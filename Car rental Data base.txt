@@ -1,0 +1,209 @@
+drop database CarRental;
+create database CarRental;
+
+use CarRental;
+
+create table Customer(
+	CID  VARCHAR (10) primary key,
+	Name VARCHAR (30) not null,
+	LicenseID VARCHAR (10) not null,
+	NIC VARCHAR (10) not null,
+	DOB date not null,
+	Address VARCHAR (25) not null,
+	Tp int (10) ,
+	Email VARCHAR (30) not null
+		
+);
+
+create table Payment(
+	PaymentID VARCHAR (10) primary key,
+	AmountPaid decimal (8,2) not null
+);
+
+create table Additional_Driver(
+	DriverID VARCHAR (10) primary key,
+	Name VARCHAR (30) not null,
+	LicenseID VARCHAR (10) not null,
+	DOB date not null
+);
+
+create table Insurance(
+	InsID VARCHAR (10) primary key,
+	InsuranceCompany VARCHAR (30) not null,
+	InsuranceType VARCHAR (30) not null
+);
+
+create table Vehicle_Brand(
+	VBID VARCHAR (10) primary key,
+	VehicleBrandName VARCHAR (25),
+	InsID VARCHAR (10) references Insurance(InsID)
+	ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+create table Vehicle_Type(
+	VTID VARCHAR (10) primary key ,
+	VBID VARCHAR (10) references Vehicle_Brand(VBID)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	ModelName VARCHAR (20) not null,
+	RegNo VARCHAR (15) not null,
+	year int (4),
+	Colour VARCHAR (20) not null,
+	SeatingCapacity int (4),
+	FuelType VARCHAR (15) not null,
+	price decimal(7,2) not null,
+	Status VARCHAR (60) not null
+);
+
+create table Reservation(
+	RID VARCHAR (10) primary key,
+	VTID VARCHAR (10) references Vehicle_Type(VTID)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	PaymentID VARCHAR (10) references Payment(PaymentID)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	CID VARCHAR (10) references Customer(CID)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	StartDate date not null,
+	EndDate date not null,
+	ReserveDate date not null,
+	description VARCHAR (50)
+
+);
+
+create table User(
+	username VARCHAR(30) primary key,
+	password VARCHAR(40)
+);
+
+insert into User values ('admin','admin123');
+insert into User values ('user','user123');
+insert into User values ('nuwan','nuwan123');
+
+insert into Customer values 
+('C001','R.Himal Udayapriya','B5522665','805263485V','1986-12-03','NO:29,Galle',0772265555,'himal333@gmail.com');
+insert into Customer values
+('C002','B.Kawinda Heshan','B5568425','805263485V','1992-05-10','NO:20,Panadura',0772662664,'kawinda558@gmail.com');
+insert into Customer values
+('C003','W.Gimhana Sadakelum','B4698552','805263485V','1932-12-21','NO:19,Colombo',0883773773,'gima525@gmail.com');
+insert into Customer values
+('C004','H.F.Hasitha Dulana','B5245688','805263485V','1989-05-07','NO:24,Mathara',0883773773,'haditha123@hotmail.com');
+insert into Customer values
+('C005','D.Sandun Dilhan','B5245855','805263485V','1989-04-18' ,'NO:25,Kandy',0775282528,'sadudilhan8@gmail.com');
+insert into Customer values
+('C006','D.Somarathne','B8524687','805263485V','1993-04-21','NO:30,Kandy',0775002128,'soma123@gmail.com');
+insert into Customer values
+('C007','N.Nadun Sampath','B8526352','805263485V','1995-09-21','NO:42,Wadduwa',0775222228,'nnnasd@gmail.com');
+insert into Customer values
+('C008','D.M.Sampath','B8754632','805263485V','1989-11-25','NO:13,Panadura',0771245778,'sampath@yahoo.com');
+
+
+
+insert into Customer values
+('C009','H.M.Kasun Asanka','B5828369','805263485V','1990-08-28','NO:02,Colombo',0777785242,'asanka@gmail.com');
+insert into Customer values
+('C010','B.M.Gayan Chandhika','B2548652','805263485V','1989-07-27','NO:34,Galle',0723568954,'gayan123@gmail.com');
+insert into Customer values
+('C011','RR.M.Dilusha Asanka','B2525896','805263485V','1992-12-05','NO:02,Kandy',0789565423,'dilushaasanka@gmail.com');
+insert into Customer values
+('C012','D.M.Deshan kawinda','B8547123','805263485V','1985-10-25','NO:02,Negambo',0789635331,'deshanasd@gmail.com');
+
+insert into Additional_Driver values ('DR001','H.M.Kasun Asanka','B33334567','1980-12-10');
+insert into Additional_Driver values ('DR002','N.Nadun Sampath','B5645342','1982-02-21');
+insert into Additional_Driver values ('DR003','H.F.Hasitha Dulana','B1223344','1983-07-15');
+
+insert into Insurance values ('INS001','Janashakthi Insurance PLC','Third Parties');
+insert into Insurance values ('INS002','Asian Alliance','The Insured Party');
+insert into Insurance values ('INS003','Ceylinco Insurance PLC','Full Insured');
+insert into Insurance values ('INS004','Ceylinco Life','Property Damage');
+insert into Insurance values ('INS005','Janashakthi Insurance PLC','The Insured Vehicle');
+insert into Insurance values ('INS006','Ceylinco Life','Third Parties');
+
+insert into vehicle_brand values ('VB001','BMW','INS001');
+insert into vehicle_brand values ('VB002','TOYOTA','INS002');
+insert into vehicle_brand values ('VB003','HONDA','INS001');
+insert into vehicle_brand values ('VB004','VOLKXWAGEN','INS001');
+insert into vehicle_brand values ('VB005','SUZUKI','INS003');
+insert into vehicle_brand values ('VB006','MAZDA','INS002');
+insert into vehicle_brand values ('VB007','NISSAN','INS003');
+insert into vehicle_brand values ('VB008','MERCEDES-BENZ','INS004');
+insert into vehicle_brand values ('VB009','FORD','INS003');
+insert into vehicle_brand values ('VB010','MITSUBISHI','INS002');
+
+insert into vehicle_type values ('VT001','VB001','3 Serias','CAC-5454',2015,'Imperial Blue',5,'Petrol','3200.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT002','VB001','5 Serias','CAA-2458',2016,'Alphine White',5,'Petrol','3750.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT003','VB001','7 Serias','CAA-3568',2016,'Mineral Grey',5,'Petrol','3850.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT004','VB001','i8','CAC-7478',2017,'Black Sapphire',4,'Hybrid','4200.00','Music System  USB  DVD  GPS Navigation');
+insert into vehicle_type values ('VT005','VB002','Camry','CAC-5454',2015,'Imperial Blue',5,'Petrol','3200.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT006','VB002','Yaris','CAA-2458',2016,'Alphine White',5,'Petrol','3750.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT009','VB003','Civic','CAC-5454',2011,'Imperial Blue',5,'Petrol','3200.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT010','VB003','Fit','CAA-2458',2015,'Alphine White',5,'Petrol','3750.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT011','VB003','Accord','CAA-3568',2014,'Mineral Grey',5,'Petrol','3850.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT012','VB003','Vezel','CAC-7478',2017,'Black Sapphire',4,'Hybrid','4200.00','Music System  USB  DVD  GPS Navigation');
+insert into vehicle_type values ('VT013','VB004','Golf','CAC-5454',2012,'Imperial Blue',5,'Petrol','3200.00','Music System');
+insert into vehicle_type values ('VT014','VB004','Jetta','CAA-2458',2014,'Alphine White',5,'Petrol','3750.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT015','VB004','Beetle','CAA-3568',2016,'Mineral Grey',5,'Petrol','3850.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT016','VB005','Maruti','CG-2465',2010,'Imperial Blue',5,'Petrol','3200.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT017','VB006','2','CAB-1526',2015,'Imperial Blue',5,'Petrol','3200.00','Music System  GPS Navigation');
+insert into vehicle_type values ('VT018','VB006','6','CAA-1528',2016,'Alphine White',5,'Petrol','3750.00','Music System  GPS Navigation');
+insert into vehicle_type values ('VT019','VB007','Sentrta','CCC-8596',2017,'Black Sapphire',4,'Hybrid','4200.00','Music System  USB  DVD  GPS Navigation');
+insert into vehicle_type values ('VT020','VB007','Versa','CAC-5454',2015,'Imperial Blue',5,'Petrol','3200.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT021','VB007','Altima','CAA-2458',2016,'Alphine White',5,'Petrol','3750.00','Music System  GPS Navigation');
+insert into vehicle_type values ('VT022','VB008','Sedan','CAA-3568',2016,'Mineral Grey',5,'Petrol','3850.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT023','VB008','Coupe','CAC-7478',2017,'Black Sapphire',4,'Hybrid','4200.00','Music System  DVD  GPS Navigation');
+insert into vehicle_type values ('VT024','VB008','New Gen Car','CAC-5454',2015,'Imperial Blue',5,'Petrol','3200.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT025','VB009','Taurus','CA-2258',2013,'Alphine White',5,'Petrol','3750.00','Music System  GPS Navigation');
+insert into vehicle_type values ('VT026','VB009','Fusion','CAA-2447',2014,'Mineral Grey',5,'Petrol','3850.00','Music System  USB  GPS Navigation');
+insert into vehicle_type values ('VT027','VB010','Lancer','MK-1551',2016,'Alphine White',5,'Petrol','3750.00','Music System  GPS Navigation');
+insert into vehicle_type values ('VT028','VB010','Mirage','VB-2856',2011,'Mineral Grey',5,'Petrol','3850.00','Music System  USB  GPS Navigation');
+
+insert into Payment values ('P001','17500.00');
+insert into Payment values ('P002','11000.00');
+insert into Payment values ('P003','3500.00');
+
+insert into Reservation values ('R001','VT004','P001','C001','2017-05-21','2017-05-23','2017-05-15','');
+insert into Reservation values ('R002','VT015','P002','C002','2017-05-20','2017-05-22','2017-05-17','');
+insert into Reservation values ('R003','VT004','P003','C005','2017-06-17','2017-06-19','2017-06-15','');
+insert into Reservation values ('R004','VT028','P004','C012','2017-06-21','2017-06-23','2017-06-15','');
+insert into Reservation values ('R005','VT012','P005','C010','2017-06-20','2017-06-22','2017-06-17','');
+insert into Reservation values ('R006','VT001','P006','C009','2017-06-19','2017-06-21','2017-06-15','');
+insert into Reservation values ('R007','VT025','P007','C005','2017-06-07','2017-06-08','2017-06-15','');
+insert into Reservation values ('R008','VT012','P008','C001','2017-06-02','2017-06-05','2017-06-17','');
+insert into Reservation values ('R009','VT018','P009','C009','2017-06-04','2017-06-08','2017-06-15','');
+
+
+
+
+
+
+SELECT * FROM User WHERE username = admin AND password = password(admin123);
+
+create table Customer(
+	CID  VARCHAR (10) primary key,
+	Name VARCHAR (30) not null,
+	Address VARCHAR (30)not null,
+	salary varchar (30)not null
+
+);
+
+create table Customer(
+	CID  VARCHAR (10) primary key,
+	Name VARCHAR (30) not null
+	
+
+);
+
+create table Customer(
+	NIC  VARCHAR (10) primary key,
+	Name VARCHAR (30) not null
+	
+
+);
+
+
+create table customer(
+	NIC  VARCHAR (10) primary key,
+	Name VARCHAR (30) not null,
+	Address VARCHAR(30) NOT NULL,
+	Salary VARCHAR(30)not null
+	
+
+);

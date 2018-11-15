@@ -1,0 +1,52 @@
+SELECT  payment.reservation_reseveId,reservation.customer_custId,reservation.vehicle_vehicleId,payment. date,payment.ammountPaid,payment.advance,payment.price +
+ "FROM payment INNER JOIN reservation ON reservation.reservation_reseveId=payment.reservation_reseveId" + "WHERE payment.paymentId";
+
+
+
+SELECT  payment.reservation_reseveId,reservation.customer_custId,reservation.vehicle_vehicleId,payment.date,payment.ammountPaid,payment.advance,payment.time
+FROM payment INNER JOIN reservation ON reservation.reseveId=payment.reservation_reseveId
+WHERE payment.paymentId=7;
+
+
+
+select vehicle.insuaranceCompany_insuaranceCompanyId, insuarancecompany.insuaranceCompanyId,insuarancecompany.companyName, insuarancecompany.insuaranceType,
+vehicle.vehicleId,vehicle.FuelType,vehicle.SeatingCapacity,vehicle.colour,vehicle.price,vehicle.status,vehicle.vehicleBrand,vehicle.vehicleInsuaranceId 
+From vehicle INNER JOIN insuarancecompany ON insuarancecompany.insuaranceCompanyId=vehicle.insuaranceCompany_insuaranceCompanyId
+WHERE vehicle.regNo="CAC-5454";
+
+
+select vehicle.insuaranceCompany_insuaranceCompanyId,insuarancecompany.companyName, insuarancecompany.insuaranceType,
+vehicle.vehicleId,vehicle.FuelType,vehicle.SeatingCapacity,vehicle.colour,vehicle.price,vehicle.status,vehicle.vehicleBrand,vehicle.vehicleInsuaranceId 
+From vehicle INNER JOIN insuarancecompany ON insuarancecompany.insuaranceCompanyId=vehicle.insuaranceCompany_insuaranceCompanyId
+WHERE vehicle.regNo="CAC-5454"
+
+select reservation.reseveId from reservation INNER JOIN customer ON customer.custId=reservation.customer_custId where customer.custNic="562562562v"
+
+select payment.paymentId from payment INNER JOIN reservation ON reservation.reseveId=payment.reservation_reseveId where reservation.reseveId='R001';
+
+
+select reservation.startDate, reservation.endDate,reservation.vehicle_vehicleId,reservation.price, payment.paymentId from payment INNER JOIN reservation ON reservation.reseveId=payment.reservation_reseveId where reservation.reseveId='R001';
+
+select payment.paymentId,payment.reservation_reseveId,payment.ammountPaid,payment.advance from payment INNER JOIN reservation ON reservation.reseveId=payment.reservation_reseveId INNER JOIN customer ON customer.custId=reservation.customer_custId where customer. custNic='943252254v';
+
+
+AdminLTE
+
+payment system;
+=======================
+select b.BATCH_ID,b.COURSE_ID,b.BATCH_NAME,b.DATE,b.STATUS,c.COURSE_Name from batch b,course c where b.COURSE_ID=c.COURSE_ID;
+
+select s.STUDENT_ID,r.REGISTRATION_ID,r.BATCH_ID from student s,registration r where r.STUDENT_ID=s.STUDENT_ID AND s.STUDENT_ID='s001';
+
+
+select s.STUDENT_ID,r.REGISTRATION_ID,r.BATCH_ID from student s,registration r where r.STUDENT_ID=s.STUDENT_ID AND b.COURSE_ID, c.COURSE_Name from b.batch,c.course where r.BATCH_ID=b.BATCH_ID;
+
+select s.STUDENT_ID,r.REGISTRATION_ID,r.BATCH_ID,b.BATCH_NAME from student s,registration r,batch b where r.STUDENT_ID=s.STUDENT_ID AND r.BATCH_ID=b.BATCH_ID;
+
+
+select s.STUDENT_ID,r.REGISTRATION_ID,r.BATCH_ID,b.BATCH_NAME from student s,registration r,batch b where r.STUDENT_ID=s.STUDENT_ID AND s.STUDENT_ID='s001' AND r.BATCH_ID=b.BATCH_ID;
+
+
+select s.STUDENT_ID,r.REGISTRATION_ID,r.BATCH_ID,b.BATCH_NAME,c.COURSE_Name,c.COURSE_FEE,c.DISCOUNT from student s,registration r,batch b ,course c where r.STUDENT_ID=s.STUDENT_ID AND s.STUDENT_ID='s001' AND r.BATCH_ID=b.BATCH_ID AND b.COURSE_ID=c.COURSE_ID;
+
+select s.STUDENT_ID,s.NAME_WITH_INITIAL,r.REGISTRATION_ID,r.BATCH_ID,r. BATCH_START_DATE,b.BATCH_NAME,c.COURSE_Name,c.COURSE_ID,c.COURSE_FEE,c.DISCOUNT,c.LATEPAYMENT from student s,registration r,batch b ,course c where r.STUDENT_ID=s.STUDENT_ID AND s.STUDENT_ID='s001' AND r.BATCH_ID=b.BATCH_ID AND b.COURSE_ID=c.COURSE_ID;

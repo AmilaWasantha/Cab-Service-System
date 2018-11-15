@@ -1,0 +1,31 @@
+ private int vehicleId;
+    private String vehicleBrand;
+    
+    private String vehicleInsuaranceId;
+    private String regNo;
+    private String colour;
+    private int SeatingCapacity;
+    private String FuelType;
+    private String status;
+    private double price;
+    private InsuaranceCompanyDTO insuaranceCompanyDTO;
+
+
+
+"SELECT vehicleId from vehicle where vehicleId not in("Select vehicleId from  reservation Where (Check_In<='" + startDate + "' 
+&& Check_Out>='" + startDate + "') || (Check_In<='" + endDate + "' 
+&& Check_Out>='" + endDate + "') || (Check_In>='" + startDate + "' 
+&& Check_Out<='" + endDate + "') || (Check_Out='" + startDate + "'
+ && Check_Out='" + endDate + "') || (Check_In='" + endDate+ "' 
+&& Check_In='" + endDate + "'))";
+
+
+
+
+"SELECT vehicleId from vehicle where vehicleId not in(Select vehicleId from Reservation Where (startDate<='" + in + "' && endDate>='" + in + "') 
+|| (startDate<='" + out + "' && endDate>='" + out + "') || (startDate>='" + in + "' && endDate<='" + out + "') 
+|| (endDate='" + in + "' && endDate='" + out + "') || (startDate='" + out + "' && startDate='" + out + "'))";
+
+
+
+SELECT vehicleId from vehicle where vehicleId not in(Select vehicleId from Reservation Where (startDate<='" + in + "' && endDate>='" + in + "') || (startDate<='" + out + "' && endDate>='" + out + "') || (startDate>='" + in + "' && endDate<='" + out + "') || (endDate='" + in + "' && endDate='" + out + "') || (startDate='" + out + "' && startDate='" + out + "'))
